@@ -24,7 +24,7 @@ namespace AdUserResetPasswordWebTool.Controllers
         {
             try
             {
-                string AccountName = "ami_allegro";
+                string AccountName = "ami@allegronet.co.il";
                 string Password = "Eyhuaev312!";
                 var pContext = new PrincipalContext(ContextType.Domain, Environment.UserDomainName, null, ContextOptions.Negotiate, AccountName, Password);
                 var usrPrincipal = UserPrincipal.FindByIdentity(pContext, model.UserPrincipalName);

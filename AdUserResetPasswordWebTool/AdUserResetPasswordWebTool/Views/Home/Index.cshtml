@@ -1,13 +1,11 @@
 ﻿@model AdUserResetPasswordWebTool.Models.ResetPasswordModel
 
 @{
-    ViewBag.Title = "Allegronet Reset Password utility - For Active Directory";
+    ViewBag.Title = "Active Directory Self Service";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     string currentFieldName = null;
 }
-
-<h2>Index</h2>
 
 @functions{
 
@@ -25,7 +23,7 @@
     }
 }
 
-<h5><i class="icon-user"></i>&nbsp;Self-Service Password Change Utility - Allegronet</h5>
+<h5><i class="icon-user"></i>&nbsp;Active Directory Self Service</h5>
 <hr />
 
 @if (Request["msg"] == "1" && ViewData.ModelState.IsValid)
@@ -56,7 +54,7 @@
     <div class="control-group @(this.HasErrors(currentFieldName) ? "error" : string.Empty)">
         <label class="control-label" for="@currentFieldName">User Principal Name</label>
         <div class="controls error">
-            <input class="input-xlarge" type="text" id="@currentFieldName" name="@currentFieldName" placeholder="firstname.lastname@allegronet.co.il" value="@Model.UserPrincipalName" />
+            <input class="input-xlarge" type="text" id="@currentFieldName" name="@currentFieldName" placeholder="" value="@Model.UserPrincipalName" />
             @if (this.HasErrors(currentFieldName))
             {
                 <span class="help-inline">@ErrorMessage(currentFieldName)</span>

@@ -30,9 +30,10 @@ namespace AdUserResetPasswordWebTool.Controllers
         {
             try
             {
-                string AccountName = "ami@allegronet.co.il";
-                string Password = "Eyhuaev312!";
+                string AccountName;
+                string Password;
                 var pContext = new PrincipalContext(ContextType.Domain, Environment.UserDomainName, null, ContextOptions.Negotiate, AccountName, Password);
+
                 var usrPrincipal = UserPrincipal.FindByIdentity(pContext, model.UserPrincipalName);
 
                 if (usrPrincipal == null)
@@ -41,7 +42,10 @@ namespace AdUserResetPasswordWebTool.Controllers
                 }
 
                 usrPrincipal.ChangePassword(model.CurrentPassword, model.NewPassword);
+                if (usrPrincipal.IsAccountLockedOut())
+                    usrPrincipal.UnlockAccount();
                 usrPrincipal.Save();
+                usrPrincipal.Dispose();
 
                 return RedirectToAction("Index", new { msg = 1 });
             }

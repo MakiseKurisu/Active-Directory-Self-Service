@@ -47,7 +47,7 @@ namespace AdUserResetPasswordWebTool.Controllers
                 usrPrincipal.Save();
                 usrPrincipal.Dispose();
 
-                return RedirectToAction("Index", new { msg = 1 });
+                return RedirectToAction("Index", new { result = "success" });
             }
             catch (Exception ex)
             {

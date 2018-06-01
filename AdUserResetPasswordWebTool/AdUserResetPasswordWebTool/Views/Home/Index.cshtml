@@ -26,7 +26,7 @@
 <h5><i class="icon-user"></i>&nbsp;Active Directory Self Service</h5>
 <hr />
 
-@if (Request["msg"] == "1" && ViewData.ModelState.IsValid)
+@if (Request["result"] == "success" && ViewData.ModelState.IsValid)
 {
     <div class="alert alert-success">
         <i class="icon-ok"></i>&nbsp;Your password was changed successfully. It may take up to 30 minutes to propagate the changes across forest sites.

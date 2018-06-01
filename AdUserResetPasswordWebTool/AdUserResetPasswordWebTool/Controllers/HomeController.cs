@@ -11,9 +11,15 @@ namespace AdUserResetPasswordWebTool.Controllers
     public class HomeController : Controller
     {
         // GET: Home
-        public ActionResult Index()
+        [AcceptVerbs("GET", "HEAD")]
+        public ActionResult Index(string id)
         {
             var model = new ResetPasswordModel();
+
+            if (id != null)
+            {
+                model.UserPrincipalName = id;
+            }
 
             return View(model);
         }

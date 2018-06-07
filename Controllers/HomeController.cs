@@ -31,29 +31,44 @@ namespace AdUserResetPasswordWebTool.Controllers
         {
             try
             {
-                string AccountName = WebConfigurationManager.AppSettings["ADAdmin"];
-                string Password = WebConfigurationManager.AppSettings["ADAdminPassword"];
-
-                if (AccountName == null || Password == null)
+                if (model.CurrentPassword != null)
                 {
-                    throw new Exception("Invalid AD Admin User Setting. Please contact IT support to update Web.config.");
+                    PrincipalContext adContext = new PrincipalContext(ContextType.Domain);
+
+                    using (adContext)
+                    {
+                        if (!adContext.ValidateCredentials(model.UserPrincipalName, model.CurrentPassword))
+                        {
+                            throw new Exception("Invalid account / password.");
+                        }
+                    }
                 }
-
-                var pContext = new PrincipalContext(ContextType.Domain, Environment.UserDomainName, null, ContextOptions.Negotiate, AccountName, Password);
-
-                var usrPrincipal = UserPrincipal.FindByIdentity(pContext, model.UserPrincipalName);
-
-                if (usrPrincipal == null)
+                else
                 {
-                    throw new Exception("User principal was not found!");
+                    string AccountName = WebConfigurationManager.AppSettings["ADAdmin"];
+                    string Password = WebConfigurationManager.AppSettings["ADAdminPassword"];
+
+                    if (AccountName == null || Password == null)
+                    {
+                        throw new Exception("Invalid AD Admin User Setting. Please contact IT support to update Web.config.");
+                    }
+
+                    var pContext = new PrincipalContext(ContextType.Domain, Environment.UserDomainName, null, ContextOptions.Negotiate, AccountName, Password);
+
+                    var usrPrincipal = UserPrincipal.FindByIdentity(pContext, model.UserPrincipalName);
+
+                    if (usrPrincipal == null)
+                    {
+                        throw new Exception("User principal was not found!");
+                    }
+
+                    //usrPrincipal.ChangePassword(model.CurrentPassword, model.NewPassword);
+                    usrPrincipal.SetPassword(model.NewPassword);
+                    if (usrPrincipal.IsAccountLockedOut())
+                        usrPrincipal.UnlockAccount();
+                    usrPrincipal.Save();
+                    usrPrincipal.Dispose();
                 }
-
-                usrPrincipal.ChangePassword(model.CurrentPassword, model.NewPassword);
-                if (usrPrincipal.IsAccountLockedOut())
-                    usrPrincipal.UnlockAccount();
-                usrPrincipal.Save();
-                usrPrincipal.Dispose();
-
                 return RedirectToAction("Index", new { result = "success" });
             }
             catch (Exception ex)

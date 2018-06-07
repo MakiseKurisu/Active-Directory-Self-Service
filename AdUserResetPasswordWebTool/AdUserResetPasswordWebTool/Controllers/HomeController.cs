@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
 using AdUserResetPasswordWebTool.Models;
 using System.DirectoryServices.AccountManagement;
@@ -30,8 +31,14 @@ namespace AdUserResetPasswordWebTool.Controllers
         {
             try
             {
-                string AccountName;
-                string Password;
+                string AccountName = WebConfigurationManager.AppSettings["ADAdmin"];
+                string Password = WebConfigurationManager.AppSettings["ADAdminPassword"];
+
+                if (AccountName == null || Password == null)
+                {
+                    throw new Exception("Invalid AD Admin User Setting. Please contact IT support to update Web.config.");
+                }
+
                 var pContext = new PrincipalContext(ContextType.Domain, Environment.UserDomainName, null, ContextOptions.Negotiate, AccountName, Password);
 
                 var usrPrincipal = UserPrincipal.FindByIdentity(pContext, model.UserPrincipalName);

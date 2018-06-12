@@ -13,8 +13,7 @@ namespace AdUserResetPasswordWebTool.Models
         [Required, Display(Name = "User Principal Name")]
         public string UserPrincipalName { get; set; }
 
-        [Display(Name = "Current Password")]
-        public string CurrentPassword { get; set; }
+        public Guid RequestID { get; set; }
 
         [Required, Display(Name = "New Password")]
         public string NewPassword { get; set; }

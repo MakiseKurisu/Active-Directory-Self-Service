@@ -29,6 +29,7 @@
     -->
   </system.web>
   <appSettings>
+    <add key="ADDomain" value="DOMAIN" xdt:Transform="Insert"/>
     <add key="ADAdmin" value="admin" xdt:Transform="Insert"/>
     <add key="ADAdminPassword" value="password" xdt:Transform="Insert"/>
     <add key="SMTPServer" value="smtp.example.com" xdt:Transform="Insert"/>

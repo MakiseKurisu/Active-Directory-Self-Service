@@ -43,15 +43,16 @@ namespace AdUserResetPasswordWebTool.Controllers
                     throw new Exception("User Principal Name cannnot be empty.");
                 }
 
+                string Domain = WebConfigurationManager.AppSettings["ADDomain"];
                 string AccountName = WebConfigurationManager.AppSettings["ADAdmin"];
                 string Password = WebConfigurationManager.AppSettings["ADAdminPassword"];
 
-                if (AccountName == null || Password == null)
+                if (AccountName == null || Password == null || Domain == null)
                 {
                     throw new Exception("Invalid AD Admin User Setting. Please contact IT support to update Web.config.");
                 }
 
-                var pContext = new PrincipalContext(ContextType.Domain, Environment.UserDomainName, null, ContextOptions.Negotiate, AccountName, Password);
+                var pContext = new PrincipalContext(ContextType.Domain, Domain, null, ContextOptions.Negotiate, AccountName, Password);
 
                 var usrPrincipal = UserPrincipal.FindByIdentity(pContext, model.UserPrincipalName);
 
@@ -182,15 +183,16 @@ namespace AdUserResetPasswordWebTool.Controllers
                     throw new Exception("This password reset link is expired. Please restart the process.");
                 }
 
+                string Domain = WebConfigurationManager.AppSettings["ADDomain"];
                 string AccountName = WebConfigurationManager.AppSettings["ADAdmin"];
                 string Password = WebConfigurationManager.AppSettings["ADAdminPassword"];
 
-                if (AccountName == null || Password == null)
+                if (AccountName == null || Password == null || Domain == null)
                 {
                     throw new Exception("Invalid AD Admin User Setting. Please contact IT support to update Web.config.");
                 }
 
-                var pContext = new PrincipalContext(ContextType.Domain, Environment.UserDomainName, null, ContextOptions.Negotiate, AccountName, Password);
+                var pContext = new PrincipalContext(ContextType.Domain, Domain, null, ContextOptions.Negotiate, AccountName, Password);
 
                 var usrPrincipal = UserPrincipal.FindByIdentity(pContext, req.UserID);
 

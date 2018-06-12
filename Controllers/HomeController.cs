@@ -15,6 +15,12 @@ namespace AdUserResetPasswordWebTool.Controllers
     public class HomeController : Controller
     {
         [AcceptVerbs("GET", "HEAD")]
+        public ActionResult Index(string id)
+        {
+            return RedirectToAction("ForgetPassword");
+        }
+
+        [AcceptVerbs("GET", "HEAD")]
         public ActionResult ForgetPassword(string id)
         {
             var model = new ForgetPasswordModel();

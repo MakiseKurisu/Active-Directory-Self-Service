@@ -16,7 +16,7 @@ namespace AdUserResetPasswordWebTool
             routes.MapRoute(
                 name: "Default",
                 url: "{action}/{id}",
-                defaults: new { controller = "Home", action = "ForgetPassword", id = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

@@ -36,6 +36,11 @@ namespace AdUserResetPasswordWebTool.Controllers
         [HttpPost]
         public ActionResult ForgetPassword(ForgetPasswordModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
             try
             {
                 if (model.UserPrincipalName == null)
@@ -156,6 +161,11 @@ namespace AdUserResetPasswordWebTool.Controllers
         [HttpPost]
         public ActionResult ResetPassword(ResetPasswordModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
             try
             {
                 if (model.RequestID == Guid.Empty)

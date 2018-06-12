@@ -30,5 +30,8 @@
   <appSettings>
     <add key="ADAdmin" value="admin" xdt:Transform="Insert"/>
     <add key="ADAdminPassword" value="password" xdt:Transform="Insert"/>
+    <add key="SMTPServer" value="smtp.example.com" xdt:Transform="Insert"/>
+    <add key="FromAddress" value="itsupport@example.com" xdt:Transform="Insert"/>
+    <add key="AppDomain" value="reset.example.com" xdt:Transform="Insert"/>
   </appSettings>
 </configuration>

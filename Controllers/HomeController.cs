@@ -115,6 +115,12 @@ namespace AdUserResetPasswordWebTool.Controllers
         {
             try
             {
+                var model = new ResetPasswordModel();
+                if (Request["result"] == "success")
+                {
+                    return View(model);
+                }
+
                 var RequestID = id;
                 if (RequestID == null)
                 {
@@ -135,7 +141,6 @@ namespace AdUserResetPasswordWebTool.Controllers
                     db.Connection.Close();
                 }
 
-                var model = new ResetPasswordModel();
                 model.UserPrincipalName = req.UserID;
                 model.RequestID = req.RequestID;
                 return View(model);
